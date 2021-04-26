@@ -45,8 +45,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	} 
 	
 	@Override
-	public void delete(int id) 
-	    throws SQLException 
+	public void delete(int id)   throws SQLException 
 	{ 
 	    String query  = "delete from employee where emp_id =?"; 
 	    PreparedStatement ps  = connection.prepareStatement(query); 
@@ -55,8 +54,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	} 
 	
 	@Override
-	public Employee getEmployee(int id) 
-	    throws SQLException 
+	public Employee getEmployee(int id)    throws SQLException 
 	{ 
 	
 	    String query  = "select * from employee where emp_id= ?"; 
@@ -82,8 +80,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	} 
 	
 	@Override
-	public List<Employee> getEmployees() 
-	    throws SQLException 
+	public List<Employee> getEmployees()  throws SQLException 
 	{ 
 	    String query = "select * from employee"; 
 	    PreparedStatement ps  = connection.prepareStatement(query); 
@@ -101,8 +98,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	} 
 	
 	@Override
-	public void update(Employee emp) 
-	    throws SQLException 
+	public void update(Employee emp)  throws SQLException 
 	{ 
 	
 	    String query = "update employee set emp_name=?, " + " emp_address= ? where emp_id = ?"; 
