@@ -12,6 +12,12 @@ public class Employee {
         this.emp_name = emp_name; 
         this.emp_address = emp_address; 
     } 
+    public Employee(int emp_id, String emp_name, String emp_address) 
+    { 
+    	this.emp_id=emp_id;
+        this.emp_name = emp_name; 
+        this.emp_address = emp_address; 
+    } 
   
     public int getEmp_id() 
     { 

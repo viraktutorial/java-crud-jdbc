@@ -13,28 +13,24 @@ import util.ConnectionUtils;
 
 public class EmployeeDaoImpl implements EmployeeDao { 
 
-	Connection connection = null;
-	
-	public EmployeeDaoImpl() throws ClassNotFoundException, SQLException {
-		connection=ConnectionUtils.getMyConnection();
-	}
 	
 	@Override
 	public int add(Employee emp) 
 	
-	{ 
+	{ Connection connection = null;
+		
 		int n = 0;
 		try {
-			
+			connection=ConnectionUtils.getMyConnection();
 		
-		    String query = "insert into employee(emp_name, " + "emp_address) VALUES (?, ?)"; 
+		    String query = "insert into employees(emp_name, " + "emp_address) VALUES (?, ?)"; 
 		    PreparedStatement ps = connection.prepareStatement(query); 
 		    ps.setString(1, emp.getEmp_name()); 
 		    ps.setString(2, emp.getEmp_address()); 
 		    n = ps.executeUpdate(); 
 		
 		
-		}catch(SQLException e){
+		}catch(SQLException | ClassNotFoundException e){
 			throw new RuntimeException(e);
 		}finally {
 			try {
@@ -50,13 +46,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	
 	@Override
 	public void delete(int id)   {
+		Connection connection = null;
+		
 		try {
-			  String query  = "delete from employee where emp_id =?"; 
+			connection=ConnectionUtils.getMyConnection();
+			  String query  = "delete from employees where emp_id =?"; 
 			    PreparedStatement ps  = connection.prepareStatement(query); 
 			    ps.setInt(1, id); 
 			    ps.executeUpdate(); 
 
-		}catch(SQLException e){
+		}catch(SQLException | ClassNotFoundException e){
 			throw new RuntimeException(e);
 		}finally {
 			try {
@@ -74,10 +73,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee getEmployee(int id)  
 	{ 
 
+		 Connection connection = null;
 		 Employee emp =null;
 	
 		try {
-	    String query  = "select * from employee where emp_id= ?"; 
+		connection=ConnectionUtils.getMyConnection();
+	    String query  = "select * from employees where emp_id= ?"; 
 	    PreparedStatement ps  = connection.prepareStatement(query); 
 	
 	    ps.setInt(1, id); 
@@ -93,7 +94,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	        emp.setEmp_address(rs.getString("emp_address")); 
 	    } 
 
-		}catch(SQLException e){
+		}catch(SQLException | ClassNotFoundException e){
 			throw new RuntimeException(e);
 		}finally {
 			try {
@@ -111,9 +112,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> getEmployees() 
 	{ 
+		Connection connection = null;
 		 List<Employee> ls;
 		try {
-		    String query = "select * from employee"; 
+			connection=ConnectionUtils.getMyConnection();
+		    String query = "select * from employees"; 
 		    PreparedStatement ps  = connection.prepareStatement(query); 
 		    ResultSet rs = ps.executeQuery(); 
 		    ls = new ArrayList<Employee>(); 
@@ -125,7 +128,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		        emp.setEmp_address(rs.getString("emp_address")); 
 		        ls.add(emp); 
 		    }
-		}catch(SQLException e){
+		}catch(SQLException | ClassNotFoundException e){
 			throw new RuntimeException(e);
 		}finally {
 			try {
@@ -142,14 +145,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public void update(Employee emp)  
 	{ 
+		Connection connection = null;
 		try {
-	    String query = "update employee set emp_name=?, " + " emp_address= ? where emp_id = ?"; 
+		connection=ConnectionUtils.getMyConnection();
+	    String query = "update employees set emp_name=?, " + " emp_address= ? where emp_id = ?"; 
 	    PreparedStatement ps = connection.prepareStatement(query); 
 	    ps.setString(1, emp.getEmp_name()); 
 	    ps.setString(2, emp.getEmp_address()); 
 	    ps.setInt(3, emp.getEmp_id()); 
 	    ps.executeUpdate(); 
-		}catch(SQLException e){
+		}catch(SQLException | ClassNotFoundException e){
 			throw new RuntimeException(e);
 		}finally {
 			try {
